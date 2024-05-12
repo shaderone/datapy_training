@@ -2,96 +2,64 @@ from modules import helper
 import matplotlib as mpl
 import matplotlib.pyplot as plt
 
+def plot_line(x_coords, y_coords, color='b', linestyle='-', marker='o', label=None):
+    plt.plot(x_coords, y_coords, color=color, linestyle=linestyle, marker=marker, label=label)
+
+def setup_plot(title, xlabel, ylabel):
+    plt.title(title)
+    plt.xlabel(xlabel)
+    plt.ylabel(ylabel)
+    plt.grid(True)
+    plt.legend()
+    plt.show()
+
 def question1():
     print("Matplotlib version:", mpl.__version__)
 
 def question2():
-    x1, y1 = 0,0
+    x1, y1 = 0, 0
     x2, y2 = 5, 250
 
-    plt.plot([x1,x2], [y1,y2])
-
-    plt.xlabel('X-axis')
-    plt.ylabel('Y-axis')
-    plt.title('Line Plot with Starting and Ending Coordinates')
-
-    plt.grid(True)
-    plt.show()
+    plot_line([x1, x2], [y1, y2])
+    setup_plot('Line Plot with Starting and Ending Coordinates', 'X-axis', 'Y-axis')
 
 def question3():
-    x1, y1 = 0,250
+    x1, y1 = 0, 250
     x2, y2 = 0, 0
-
-    plt.plot([x1,x2], [y1,y2])
-
-    plt.xlabel('X-axis')
-    plt.ylabel('Y-axis')
-    plt.title('Line Plot with Starting and Ending Coordinates')
-
+    plot_line([x1, x2], [y1, y2])
     plt.xlim(-5, 5)
     plt.ylim(0, 300)
-
-    plt.grid(True)
-    plt.show()
+    setup_plot('Line Plot with Starting and Ending Coordinates', 'X-axis', 'Y-axis')
 
 def question4():
     x_coords = [1, 2, 3, 4, 5]
     y_coords = [5, 10, 3, 8, 0]
-
-    plt.plot(x_coords, y_coords)
-
-    plt.xlabel('X - axis')
-    plt.ylabel('Y - axis')
-    plt.title('Line from (1, 5) to (2, 10) to (3, 3) to (4, 8) to (5, 0)')
-
-    plt.show()
+    plot_line(x_coords, y_coords)
+    setup_plot('Line from (1, 5) to (2, 10) to (3, 3) to (4, 8) to (5, 0)', 'X-axis', 'Y-axis')
 
 def question5(marker):
     x_coords = [1, 2, 3, 4, 5]
     y_coords = [5, 10, 3, 8, 0]
-
-    plt.plot(x_coords, y_coords, marker=marker)
-
-    plt.xlabel('X - axis')
-    plt.ylabel('Y - axis')
-    plt.title('Line from (1, 5) to (2, 10) to (3, 3) to (4, 8) to (5, 0)')
-
-    plt.show()
+    plot_line(x_coords, y_coords, marker=marker)
+    setup_plot('Line from (1, 5) to (2, 10) to (3, 3) to (4, 8) to (5, 0)', 'X-axis', 'Y-axis')   
 
 def question6(line_ref, label):
     x_coords = [1, 2, 3, 4, 5]
     y_coords = [5, 10, 3, 8, 0]
-
-    plt.plot(x_coords, y_coords, linestyle=line_ref, marker='o', label=label)
-
-    plt.xlabel('X - axis')
-    plt.ylabel('Y - axis')
-    plt.title('Line from (1, 5) to (2, 10) to (3, 3) to (4, 8) to (5, 0)')
-
-    plt.legend()
-    plt.show()
+    plot_line(x_coords, y_coords, linestyle=line_ref, marker='o', label=label)
+    setup_plot('Line from (1, 5) to (2, 10) to (3, 3) to (4, 8) to (5, 0)', 'X-axis', 'Y-axis')
 
 def question7(color,label, title='Line from (1, 5) to (2, 10) to (3, 3) to (4, 8) to (5, 0)'):
     x_coords = [1, 2, 3, 4, 5]
     y_coords = [5, 10, 3, 8, 0]
-
-    plt.plot(x_coords, y_coords, color=color, marker='o', label=label)
-
-    plt.xlabel('X - axis')
-    plt.ylabel('Y - axis')
-    plt.title(title)
-
-    plt.legend()
-    plt.grid(True)
-    plt.show()
-
+    plot_line(x_coords, y_coords, color=color, marker='o', label=label)
+    setup_plot(title, 'X-axis', 'Y-axis')
 
 def question8():
-    question7('r','red', title="With Labels and Title")
+    question7('r','red', title="with label and title")
 
 def question9():
-    question7('g','green', title="With Grid lines")
-
+    question7('g','green', title="with grid")
 
 def main():
     while True:
@@ -127,7 +95,6 @@ def main():
                             '+': 'Plus'
                         }
                         while True:
-                            try:
                                 marker_choice = input("->\tSelect a marker type \033[36m['o', '*', '.', 'X','+']\033[0m \033[33mor\033[0m\n\tenter \033[31m ↵ \033[0m to clear console \033[33mor\033[0m\n\tenter \033[31m e \033[0m to Exit question : ")
                                 
                                 if(marker_choice == ""):
@@ -141,10 +108,6 @@ def main():
                                         print("\n")
                                     else :
                                         print("Invalid Input. Please Retry...")
-
-                            except ValueError:
-                                print("Invalid Input. Please Retry...")
-
                     elif choice == 6:
                         line_styles = {
                             '-': 'solid',
@@ -153,7 +116,6 @@ def main():
                             '-.': 'dashdot'
                         }
                         while True:
-                            try:
                                 line_ref_choice = input("->\tSelect a marker type \033[36m['-', ':', '--', '-.']\033[0m \033[33mor\033[0m\n\tenter \033[31m ↵ \033[0m to clear console \033[33mor\033[0m\n\tenter \033[31m e \033[0m to Exit question : ").strip()
 
                                 if(line_ref_choice == ""):
@@ -167,10 +129,6 @@ def main():
                                         print("\n")
                                     else :
                                         print("Invalid Input. Please Retry...")
-
-                            except ValueError:
-                                print("Invalid Input. Please Retry...")
-
                     elif choice == 7:
                         line_colors = {
                             'r': 'red',
@@ -182,26 +140,20 @@ def main():
                             'k': 'black',
                             'w': 'white'
                         }
-
                         while True:
-                            try:
-                                color_choice = input("->\tSelect a marker type \033[36m['r', 'g', 'b', 'c', 'm', 'y', 'k', 'w']\033[0m \033[33mor\033[0m\n\tenter \033[31m ↵ \033[0m to clear console \033[33mor\033[0m\n\tenter \033[31m e \033[0m to Exit question : ").strip()
+                            color_choice = input("->\tSelect a marker type \033[36m['r', 'g', 'b', 'c', 'm', 'y', 'k', 'w']\033[0m \033[33mor\033[0m\n\tenter \033[31m ↵ \033[0m to clear console \033[33mor\033[0m\n\tenter \033[31m e \033[0m to Exit question : ").strip()
 
-                                if(color_choice == ""):
-                                    helper.clear_console()
-                                else:
-                                    if color_choice == 'e':
-                                        print("Going back...")
-                                        break;
-                                    elif color_choice in line_colors.keys():
-                                        question7(color=color_choice, label=line_colors[color_choice])
-                                        print("\n")
-                                    else :
-                                        print("Invalid Input. Please Retry...")
-
-                            except ValueError:
-                                print("Invalid Input. Please Retry...")
-
+                            if(color_choice == ""):
+                                helper.clear_console()
+                            else:
+                                if color_choice == 'e':
+                                    print("Going back...")
+                                    break;
+                                elif color_choice in line_colors.keys():
+                                    question7(color=color_choice, label=line_colors[color_choice])
+                                    print("\n")
+                                else :
+                                    print("Invalid Input. Please Retry...")
                     elif choice == 8:
                         question8()
                         print("\n")
