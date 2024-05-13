@@ -65,28 +65,4 @@ def install_requirements():
         print("\033[91mError: Not connected to the internet.\033[0m")
         sys.exit(1)
 
-    #clear_console()
-
 install_requirements()
-
-def check_packages():
-    try:
-        import numpy
-        import pandas 
-        import matplotlib
-    except (ImportError, ModuleNotFoundError) :
-        install_requirements()
-        #clear_console()
-
-def make_files():
-    check_packages()
-    import pandas as pd
-    global df_csv, df_excel
-    df_csv = pd.DataFrame(data.car_data, columns=data.car_data[0])
-    df_csv.to_csv('car_csv.csv', index=False)
-    df_excel = pd.DataFrame(data.population_data, columns=data.population_data[0])
-    df_excel.to_excel('population_excel.xlsx', index=False)
-
-    print("\033[36mCsv and Excel Files Created Successfully!\033[0m\n")
-
-make_files()
