@@ -5,6 +5,8 @@ import _helper as hp
 from _helper import Colors
 from enum import Enum
 
+import sys
+
 class GameStatus(Enum):
     PLAY = "p"
     CLEAR = 'c'
@@ -35,12 +37,13 @@ def start_quiz():
     ERASE_LINE = '\x1b[1M'
     for question, correct_answer in questions_and_answers.items():
         answer = input(question).strip().lower()
-        print(CURSOR_UP_ONE + ERASE_LINE + CURSOR_UP_ONE)
+        #print(CURSOR_UP_ONE + CURSOR_UP_ONE) # will work because the duplicate print() exceeds the input() promt length.
+        print(CURSOR_UP_ONE + ERASE_LINE, end="")
         if answer == correct_answer.lower():
-            print(f"{question}{answer} - {hp.ct(Colors.GREEN,"✔")}")
+            print(f"{question}{answer} here - {hp.ct(Colors.GREEN,"✔")}")
             score+=1
         else:
-            print(f"{question}{answer} - {hp.ct(Colors.RED,"X")} The correct answer is {hp.ct(Colors.BLUE,correct_answer)}.")
+            print(f"{question}{answer} hehe - {hp.ct(Colors.RED,"X")} The correct answer is {hp.ct(Colors.BLUE,correct_answer)}.")
     
     return score
 
