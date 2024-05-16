@@ -33,12 +33,10 @@ questions_and_answers = {
 
 def start_quiz():
     score = 0
-    CURSOR_UP_ONE = '\x1b[1A'
-    ERASE_LINE = '\x1b[1M'
     for question, correct_answer in questions_and_answers.items():
         answer = input(question).strip().lower()
         #print(CURSOR_UP_ONE + CURSOR_UP_ONE) # will work because the duplicate print() exceeds the input() promt length.
-        print(CURSOR_UP_ONE + ERASE_LINE, end="")
+        hp.clear_line()
         if answer == correct_answer.lower():
             print(f"{question}{answer} here - {hp.ct(Colors.GREEN,"✔")}")
             score+=1

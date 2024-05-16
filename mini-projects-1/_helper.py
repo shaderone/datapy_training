@@ -12,6 +12,11 @@ class Colors(Enum):
     WHITE = '\033[37m'
     _RESET = '\033[0m'
 
+def clear_line():
+    CURSOR_UP_ONE = '\x1b[1A'
+    ERASE_LINE = '\x1b[1M'
+    print(CURSOR_UP_ONE + ERASE_LINE, end="")
+
 def clear_console():
     os.system('cls' if os.name == 'nt' else 'clear')
 
