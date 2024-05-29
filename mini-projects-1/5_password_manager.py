@@ -1,14 +1,31 @@
+from cryptography.fernet import Fernet
 from InquirerPy import inquirer, prompt
 import _helper as hp
 
-def view():
-    with open('passwords.txt','r') as file:
-        #loop through each line
-        for line in file.readlines():
-            print(line.rstrip())
-        print()
+#def generate_key():
+#    key = Fernet.generate_key()
+#    with open('key.key','wb') as key_file:
+#        key_file.write(key)
+#generate_key()
 
-def add():
+def load_key():
+    with open('key.key','rb') as key_file:
+        key = key_file.read()
+    return key
+
+def view(fernet):
+    try:
+        with open('passwords.txt','r') as file:
+            #loop through each line
+            for line in file.readlines():
+                data = line.rstrip()
+                name, password = data.split("|")
+                decrypted_password = fernet.decrypt(password.encode()).decode()
+                print(f"user : {name}, password : {decrypted_password}")
+    except FileNotFoundError:
+        print("No accounts exist!")
+
+def add(fernet):
     questions = [
         {
             'type': 'input',
@@ -28,13 +45,18 @@ def add():
     name = answers['name']
     password = answers['password']
 
+    encrypted_password = fernet.encrypt(password.encode()).decode()
     with open('passwords.txt','a') as file:
-        file.write(f'{name} | {password}\n')
+        file.write(f'{name} | {encrypted_password}\n')
     
     print("New password stored\n")
 
 def main():
-    #master_password = input("Enter the master password: ")
+    #master_password = input("Enter the master password: ").encode()
+    
+    key = load_key() 
+    fernet = Fernet(key)
+    
     while True:
         manager_options = ["View Passwords", "Store New Password", "Clear Screen", "Exit"]
         choice = inquirer.select(
@@ -52,9 +74,9 @@ def main():
         elif choice == "Clear Screen":
             hp.clear_console()
         elif choice == "View Passwords":
-            view()
+            view(fernet)
         elif choice == "Store New Password":
-            add()
+            add(fernet)
 
     
 
